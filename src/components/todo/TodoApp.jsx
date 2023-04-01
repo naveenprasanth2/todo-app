@@ -6,11 +6,13 @@ import WelcomeComponent from "./WelcomeComponent"
 import LoginComponent from "./LoginComponent"
 import ErrorComponent from "./ErrorComponent"
 import ListTodosComponent from "./ListTodosComponent"
+import AuthProvider from "./security/AuthContext"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 export default function TodoApp() {
     return (
         <>
+        <AuthProvider>
             <BrowserRouter>
             <HeaderComponent />
                 <Routes>
@@ -23,6 +25,7 @@ export default function TodoApp() {
                 </Routes>
                 <FooterComponent />
             </BrowserRouter>
+           </AuthProvider>
         </>
     )
 }
