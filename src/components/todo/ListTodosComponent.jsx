@@ -1,14 +1,22 @@
+import { useEffect, useState } from "react"
+import { retrieveAllTodosForUserName } from "./api/TodoApiService"
+
 function ListTodosComponent() {
 
-    const today = new Date()
-    const targetDate = new Date(today.getFullYear() + 12, today.getMonth(), today.getDay())
+    const [todos, setTodos] = useState([])
 
+    //need to load the data as soon as the component refreshed. So, it will be
 
-    const todos = [{ id: 1, description: 'Learn AWS', done: false, targetDate: targetDate },
-    { id: 2, description: 'Learn Full Stack dev', done: false, targetDate: targetDate },
-    { id: 3, description: 'Learn DevOps', done: false, targetDate: targetDate }
-    ]
+    useEffect(
+        () => {
+            refreshTodos()
+        }, []  //this [] is done to make sure the data is not refreshed everytime without a need
+    )
 
+    function refreshTodos() {
+        retrieveAllTodosForUserName("in28minutes").then((todos) => setTodos(todos.data))
+            .catch((error) => console.log(error))
+    }
     return (
         <div className="container">
             <h1>Things you want to do</h1>
@@ -30,7 +38,7 @@ function ListTodosComponent() {
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
-                                    <td>{todo.targetDate.toDateString()}</td>
+                                    <td>{todo.targetDate.toString()}</td>
                                 </tr>
                             )
                             )
