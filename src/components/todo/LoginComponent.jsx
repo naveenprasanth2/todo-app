@@ -19,8 +19,9 @@ function LoginComponent() {
 
     }
 
-    function handleSubmit() {
-        if(authContext.login(userName, password)){
+    //the below method is made as async bcoz, the related used methods needs this method to wait till a response is obtained
+    async function handleSubmit() {
+        if(await authContext.login(userName, password)){
             navigate(`/welcome/${userName}`)
         }else{
             setShowFailedMessage(true)

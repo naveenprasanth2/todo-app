@@ -22,7 +22,7 @@ function HeaderComponent() {
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav">
                             {authContext.isAuthenticated &&  <li className="nav-item fs-5"><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>}
-                            {authContext.isAuthenticated &&  <li className="nav-item fs-5"><Link className="nav-link" to="/todos"Todos>Todos</Link></li>}
+                            {authContext.isAuthenticated &&  <li className="nav-item fs-5"><Link className="nav-link" to="/todos">Todos</Link></li>}
                             </ul>
                         </div>
                         <ul className="navbar-nav">

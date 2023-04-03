@@ -11,4 +11,16 @@ export function retrieveHelloWorldBean() {
 }
 
 //most effective and common way of calling the above function
-export const retrieveHelloWorldPathVariable = (userName) => apiClient.get(`/hello-world/path-variable/${userName}`)
+//by default we need to pass headers as a part of request
+export const retrieveHelloWorldPathVariable = (userName, token) => apiClient.get(`/hello-world/path-variable/${userName}`, {
+    headers:{
+        Authorization: token,
+    }
+})
+
+
+export const executeBasicAuthenticationService = (token) => apiClient.get("/basicauth", {
+    headers: {
+        Authorization: token
+    }
+})
