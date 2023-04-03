@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-//AuthContext is not default export, so pit AuthContext in braces
+//AuthContext is not default export, so put AuthContext in braces
 import { useAuth } from "./security/AuthContext"
 
 function HeaderComponent() {
@@ -12,6 +12,7 @@ function HeaderComponent() {
     function logout(){
         authContext.logout()
     }
+
     return (
         <header className="border-bottom border-light border-5 mb-5 p-2">
             <div className="container">
