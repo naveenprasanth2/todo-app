@@ -8,7 +8,7 @@ function WelcomeComponent() {
     const authContext = useAuth()
 
     function callHelloWorldRestApi(){        
-        retrieveHelloWorldPathVariable("ranga", authContext.token)
+        retrieveHelloWorldPathVariable("ranga")
         .then((response) => successfulResponse(response))
         .catch((error) => errorResponse(error))
         .finally(() => console.log('cleanup'))

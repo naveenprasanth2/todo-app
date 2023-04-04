@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { executeBasicAuthenticationService } from "../api/HelloWorldApiCall";
+import { apiClient } from "../api/ApiClient";
 
 
 //1. create a context
@@ -46,6 +47,16 @@ export default function AuthProvider({ children }) {
                 setAuthenticated(true)
                 setToken(baToken)
                 setUserName(userName)
+
+                //this line will help in adding the token for all the requests
+                apiClient.interceptors.request.use(
+                    (config) => {
+                        console.log('intercepting and adding a token')
+                        config.headers.Authorization = baToken
+                        return config
+                    }
+                )
+
                 return true
             } else {
                 logout()
