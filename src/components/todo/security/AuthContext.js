@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { executeBasicAuthenticationService } from "../api/HelloWorldApiCall";
+import { executeJwtAuthenticationService } from "../api/AuthenticationApiService";
 import { apiClient } from "../api/ApiClient";
 
 
@@ -23,36 +23,26 @@ export default function AuthProvider({ children }) {
         </AuthContext.Provider>
     )
 
-    // function login(userName, password) {
-    //     if (userName === 'in28minutes' && password === 'dummy') {
-    //         setAuthenticated(true)
-    //         setUserName(userName)
-    //         return true
-    //     } else {
-    //         setAuthenticated(false)
-    //         return false
-    //     }
-    // }
-
     async function login(userName, password) {
 
-        const baToken = 'Basic ' + window.btoa(userName + ":" + password)
+        // const baToken = 'Basic ' + window.btoa(userName + ":" + password)
 
         // the below line is a promise, this will wait for response to come back, but the next lines of code will execute though
         // the above lines are not executed. Hence, use await along with async
-        const response = await executeBasicAuthenticationService(baToken)
-
+        const response = await executeJwtAuthenticationService(userName, password)
+        console.log(response)
         try {
             if (response.status == 200) {
+                const jwtToken = 'Bearer '+ response.data.token
                 setAuthenticated(true)
-                setToken(baToken)
                 setUserName(userName)
+                setToken(jwtToken)
 
                 //this line will help in adding the token for all the requests
                 apiClient.interceptors.request.use(
                     (config) => {
                         console.log('intercepting and adding a token')
-                        config.headers.Authorization = baToken
+                        config.headers.Authorization = jwtToken
                         return config
                     }
                 )
